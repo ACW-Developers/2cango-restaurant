@@ -38,7 +38,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <Sparkles className="w-12 h-12 text-muted-foreground/30" />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+          
 
           {product.is_on_sale && (
             <div className="absolute top-3 left-3 bg-destructive text-destructive-foreground text-xs font-bold px-3 py-1 rounded-full">
