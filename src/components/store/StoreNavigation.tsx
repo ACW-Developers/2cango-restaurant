@@ -26,8 +26,8 @@ const StoreNavigation = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-            <img src={logo} alt="BrightPath" className="h-8 w-8 object-contain" />
-            <h1 className="text-lg font-bold font-space gradient-text">BrightPath Merchandise</h1>
+            <img src={logo} alt="2Cango" className="h-10 w-10 object-contain" />
+            <h1 className="text-lg font-bold font-space gradient-text">2Cango Restaurant</h1>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
