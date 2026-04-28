@@ -1,11 +1,11 @@
 {
-  "name": "BrightPath Technologies",
-  "short_name": "BrightPath",
-  "description": "Transforming Ideas into Digital Success - Innovative digital solutions including website development, custom software, mobile apps, and IT consulting",
+  "name": "2Cango Restaurant",
+  "short_name": "2Cango",
+  "description": "Bold West African flavors in Phoenix, Arizona — smoky jollof, char-grilled tilapia, sizzling shawarma wraps and more.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0A0F1E",
-  "theme_color": "#0EA5E9",
+  "background_color": "#FBF5EC",
+  "theme_color": "#E85D2F",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -21,17 +21,17 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "technology", "productivity"],
+  "categories": ["food", "lifestyle"],
   "shortcuts": [
     {
-      "name": "Our Services",
-      "url": "/#services",
-      "description": "View our digital services"
+      "name": "Menu",
+      "url": "/shop",
+      "description": "Browse the full menu"
     },
     {
-      "name": "Contact Us",
-      "url": "/#contact",
-      "description": "Get in touch with our team"
+      "name": "Track Order",
+      "url": "/track",
+      "description": "Track your order"
     }
   ]
 }
