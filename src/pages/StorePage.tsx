@@ -50,7 +50,7 @@ const StorePage = () => {
               <div className="max-w-7xl mx-auto">
                 <div className="flex items-center gap-3 mb-8">
                   <Sparkles className="w-6 h-6 text-primary" />
-                  <h2 className="text-3xl font-bold font-space">Featured Products</h2>
+                  <h2 className="text-3xl font-bold font-space">Featured Dishes</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {featured.map(p => <ProductCard key={p.id} product={p} />)}
@@ -86,17 +86,17 @@ const StorePage = () => {
                 <div className="relative z-10">
                   <TrendingUp className="w-12 h-12 text-primary mx-auto mb-4" />
                   <h2 className="text-3xl md:text-4xl font-bold font-space mb-4">
-                    Elevate Your <span className="gradient-text">Brand</span>
+                    Taste the <span className="gradient-text">Bold Side</span> of Phoenix
                   </h2>
                   <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
-                    From custom t-shirts and caps to car branding and office signage — we bring your brand to life with premium quality prints.
+                    From smoky jollof and grilled tilapia to sizzling shawarma — every plate is made to order with fresh ingredients and big West African flavor.
                   </p>
                   <Button
                     variant="glass"
                     size="lg"
-                    onClick={() => window.open("https://wa.me/15207361677?text=" + encodeURIComponent("Hello there, I'm interested in your service."), "_blank")}
+                    onClick={() => window.open("https://wa.me/15207361677?text=" + encodeURIComponent("Hi 2Cango! I'd like to place an order."), "_blank")}
                   >
-                    Get a Custom Quote
+                    Order on WhatsApp
                   </Button>
                 </div>
               </div>
@@ -108,7 +108,7 @@ const StorePage = () => {
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                   <ShoppingBag className="w-6 h-6 text-primary" />
-                  <h2 className="text-3xl font-bold font-space">All Products</h2>
+                  <h2 className="text-3xl font-bold font-space">Our Menu</h2>
                 </div>
                 <ClearCacheButton />
               </div>
@@ -116,7 +116,7 @@ const StorePage = () => {
               <div className="flex flex-col md:flex-row gap-4 mb-8">
                 <div className="relative flex-1 max-w-md">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input placeholder="Search products..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
+                  <Input placeholder="Search the menu..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10" />
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {categories.map((cat) => (
