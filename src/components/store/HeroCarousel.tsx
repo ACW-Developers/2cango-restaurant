@@ -14,7 +14,6 @@ const slides = [
     subtitle: "Signature West African Mains",
     description: "Bottom-pot smoky jollof rice with juicy grilled chicken — Phoenix's favorite comfort plate.",
     cta: "Order Now",
-    color: "from-orange-700/70 to-red-600/70",
   },
   {
     image: slide2,
@@ -22,7 +21,6 @@ const slides = [
     subtitle: "From the Grill, Fresh Daily",
     description: "Whole tilapia marinated in our house pepper rub and flame-grilled to perfection.",
     cta: "View Menu",
-    color: "from-amber-700/70 to-orange-600/70",
   },
   {
     image: slide3,
@@ -30,7 +28,6 @@ const slides = [
     subtitle: "Wraps, Bowls & Sides",
     description: "Tender spiced beef, fresh greens and our garlic-pepper sauce in a toasted flatbread.",
     cta: "Order Wraps",
-    color: "from-rose-700/70 to-amber-600/70",
   },
 ];
 
@@ -102,8 +99,8 @@ const HeroCarousel = () => {
                 alt={slides[current].title}
                 className="w-full h-full object-cover"
               />
-              <div className={`absolute inset-0 bg-gradient-to-t ${slides[current].color} mix-blend-multiply`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              {/* Subtle bottom-only darkening so the title/description stay legible without tinting the food */}
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
 
               {/* Content overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
