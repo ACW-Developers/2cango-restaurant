@@ -573,16 +573,28 @@ const CartDrawer = () => {
                   <span className="font-medium">{form.name}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-muted-foreground">Deliver to</span>
-                  <span className="font-medium text-right text-xs">{form.address}, {form.city}</span>
+                  <span className="text-muted-foreground">{fulfillment === "pickup" ? "Pickup at" : "Deliver to"}</span>
+                  <span className="font-medium text-right text-xs">
+                    {fulfillment === "pickup" ? PICKUP_ADDRESS : `${form.address}, ${form.city}`}
+                  </span>
+                </div>
+                {fulfillment === "delivery" && (
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-muted-foreground">Courier</span>
+                    <span className="font-medium">{courier === "doordash" ? "DoorDash" : "Uber Eats"}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-muted-foreground">ETA</span>
+                  <span className="font-medium">{etaLabel}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-muted-foreground">Subtotal</span>
                   <span>${totalPrice().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-muted-foreground flex items-center gap-1"><Truck className="w-3 h-3" /> Shipping</span>
-                  <span>{shippingFee === 0 ? <span className="text-green-500">Free</span> : `$${shippingFee.toFixed(2)}`}</span>
+                  <span className="text-muted-foreground flex items-center gap-1"><Truck className="w-3 h-3" /> {fulfillment === "pickup" ? "Pickup" : "Delivery fee"}</span>
+                  <span>{shippingFee === 0 ? <span className="text-primary font-medium">Free</span> : `$${shippingFee.toFixed(2)}`}</span>
                 </div>
                 <div className="flex justify-between mt-2">
                   <span className="font-semibold">Total</span>
