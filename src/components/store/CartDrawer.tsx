@@ -97,7 +97,7 @@ const CartDrawer = () => {
       toast({ title: "Missing info", description: "Please fill in your name and email.", variant: "destructive" });
       return;
     }
-    if (!form.address || !form.city) {
+    if (fulfillment === "delivery" && (!form.address || !form.city)) {
       toast({ title: "Missing delivery info", description: "Please fill in your delivery address.", variant: "destructive" });
       return;
     }
@@ -162,7 +162,7 @@ const CartDrawer = () => {
       toast({ title: "Missing info", description: "Please fill in your name and email.", variant: "destructive" });
       return;
     }
-    if (!form.address || !form.city) {
+    if (fulfillment === "delivery" && (!form.address || !form.city)) {
       toast({ title: "Missing delivery info", description: "Please fill in your delivery address.", variant: "destructive" });
       return;
     }
@@ -264,7 +264,7 @@ const CartDrawer = () => {
   };
 
   const canProceedToDelivery = form.name && form.email;
-  const canProceedToPayment = form.address && form.city;
+  const canProceedToPayment = fulfillment === "pickup" ? true : (form.address && form.city);
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => { if (!open) resetAndClose(); else setIsOpen(true); }}>
