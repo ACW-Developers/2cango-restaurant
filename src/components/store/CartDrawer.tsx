@@ -10,6 +10,16 @@ import { useCartStore } from "@/stores/cartStore";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import logo from "@/assets/logo/logo.png";
+import doordashLogo from "@/assets/delivery/doordash.png";
+import uberEatsLogo from "@/assets/delivery/ubereats.png";
+
+type Fulfillment = "delivery" | "pickup";
+type Courier = "doordash" | "ubereats";
+
+const PICKUP_ADDRESS = "2Cango Kitchen — 1234 N Central Ave, Phoenix, AZ 85004";
+const DELIVERY_FLAT_FEE = 5.99;
+const DELIVERY_ETA = "30–45 min";
+const PICKUP_ETA = "15–20 min";
 
 type Step = "cart" | "details" | "delivery" | "payment" | "confirmation";
 
@@ -36,6 +46,8 @@ const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<Step>("cart");
   const [isOrdering, setIsOrdering] = useState(false);
+  const [fulfillment, setFulfillment] = useState<Fulfillment>("delivery");
+  const [courier, setCourier] = useState<Courier>("doordash");
   const [form, setForm] = useState({
     name: "", email: "", phone: "",
     address: "", city: "", state: "", zip: "", country: "US",
