@@ -72,12 +72,12 @@ const CartDrawer = () => {
   }, []);
 
   const shippingFee: number = (() => {
-    const fee = shippingSettings.shipping_fee;
-    if (fee === 0) return 0;
+    if (fulfillment === "pickup") return 0;
     if (shippingSettings.free_shipping_enabled && totalPrice() >= shippingSettings.free_shipping_threshold) return 0;
-    return Math.min(Math.max(fee, 0), 50);
+    return DELIVERY_FLAT_FEE;
   })();
 
+  const etaLabel = fulfillment === "pickup" ? PICKUP_ETA : DELIVERY_ETA;
   const grandTotal = totalPrice() + shippingFee;
 
   const geocodeAddress = async () => {
