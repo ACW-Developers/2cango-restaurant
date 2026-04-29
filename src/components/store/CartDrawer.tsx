@@ -10,6 +10,16 @@ import { useCartStore } from "@/stores/cartStore";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import logo from "@/assets/logo/logo.png";
+import doordashLogo from "@/assets/delivery/doordash.png";
+import uberEatsLogo from "@/assets/delivery/ubereats.png";
+
+type Fulfillment = "delivery" | "pickup";
+type Courier = "doordash" | "ubereats";
+
+const PICKUP_ADDRESS = "2Cango Kitchen — 1234 N Central Ave, Phoenix, AZ 85004";
+const DELIVERY_FLAT_FEE = 5.99;
+const DELIVERY_ETA = "30–45 min";
+const PICKUP_ETA = "15–20 min";
 
 type Step = "cart" | "details" | "delivery" | "payment" | "confirmation";
 
@@ -36,6 +46,8 @@ const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<Step>("cart");
   const [isOrdering, setIsOrdering] = useState(false);
+  const [fulfillment, setFulfillment] = useState<Fulfillment>("delivery");
+  const [courier, setCourier] = useState<Courier>("doordash");
   const [form, setForm] = useState({
     name: "", email: "", phone: "",
     address: "", city: "", state: "", zip: "", country: "US",
@@ -60,12 +72,12 @@ const CartDrawer = () => {
   }, []);
 
   const shippingFee: number = (() => {
-    const fee = shippingSettings.shipping_fee;
-    if (fee === 0) return 0;
+    if (fulfillment === "pickup") return 0;
     if (shippingSettings.free_shipping_enabled && totalPrice() >= shippingSettings.free_shipping_threshold) return 0;
-    return Math.min(Math.max(fee, 0), 50);
+    return DELIVERY_FLAT_FEE;
   })();
 
+  const etaLabel = fulfillment === "pickup" ? PICKUP_ETA : DELIVERY_ETA;
   const grandTotal = totalPrice() + shippingFee;
 
   const geocodeAddress = async () => {
@@ -85,7 +97,7 @@ const CartDrawer = () => {
       toast({ title: "Missing info", description: "Please fill in your name and email.", variant: "destructive" });
       return;
     }
-    if (!form.address || !form.city) {
+    if (fulfillment === "delivery" && (!form.address || !form.city)) {
       toast({ title: "Missing delivery info", description: "Please fill in your delivery address.", variant: "destructive" });
       return;
     }
@@ -103,19 +115,26 @@ const CartDrawer = () => {
       const { lat, lng } = await geocodeAddress();
 
       // Store order metadata in sessionStorage for the success page
+      const courierLabel = courier === "doordash" ? "DoorDash" : "Uber Eats";
+      const fulfillmentNote = fulfillment === "pickup"
+        ? `[PICKUP — ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`.trim()
+        : `[DELIVERY via ${courierLabel} — ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`.trim();
       const orderMetadata = {
         phone: form.phone,
-        address: form.address,
-        city: form.city,
-        state: form.state,
+        address: fulfillment === "pickup" ? PICKUP_ADDRESS : form.address,
+        city: fulfillment === "pickup" ? "Phoenix" : form.city,
+        state: fulfillment === "pickup" ? "AZ" : form.state,
         zip: form.zip,
         country: form.country,
-        deliveryInstructions: form.deliveryInstructions,
+        deliveryInstructions: fulfillmentNote,
         altContactName: form.altContactName,
         altContactPhone: form.altContactPhone,
         items: orderItems,
         latitude: lat,
         longitude: lng,
+        fulfillment,
+        courier: fulfillment === "delivery" ? courier : null,
+        eta: fulfillment === "pickup" ? PICKUP_ETA : DELIVERY_ETA,
       };
 
       sessionStorage.setItem("checkout_metadata", JSON.stringify(orderMetadata));
@@ -150,7 +169,7 @@ const CartDrawer = () => {
       toast({ title: "Missing info", description: "Please fill in your name and email.", variant: "destructive" });
       return;
     }
-    if (!form.address || !form.city) {
+    if (fulfillment === "delivery" && (!form.address || !form.city)) {
       toast({ title: "Missing delivery info", description: "Please fill in your delivery address.", variant: "destructive" });
       return;
     }
@@ -177,12 +196,14 @@ const CartDrawer = () => {
         customer_phone: form.phone || null,
         items: orderItems as any,
         total_amount: total,
-        delivery_address: form.address,
-        delivery_city: form.city,
-        delivery_state: form.state || null,
+        delivery_address: fulfillment === "pickup" ? PICKUP_ADDRESS : form.address,
+        delivery_city: fulfillment === "pickup" ? "Phoenix" : form.city,
+        delivery_state: fulfillment === "pickup" ? "AZ" : (form.state || null),
         delivery_zip: form.zip || null,
         delivery_country: form.country,
-        delivery_instructions: form.deliveryInstructions || null,
+        delivery_instructions: (fulfillment === "pickup"
+          ? `[PICKUP — ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`
+          : `[DELIVERY via ${courier === "doordash" ? "DoorDash" : "Uber Eats"} — ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`).trim(),
         alt_contact_name: form.altContactName || null,
         alt_contact_phone: form.altContactPhone || null,
         payment_method: "bank_transfer",
@@ -252,7 +273,7 @@ const CartDrawer = () => {
   };
 
   const canProceedToDelivery = form.name && form.email;
-  const canProceedToPayment = form.address && form.city;
+  const canProceedToPayment = fulfillment === "pickup" ? true : (form.address && form.city);
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => { if (!open) resetAndClose(); else setIsOpen(true); }}>
@@ -417,38 +438,102 @@ const CartDrawer = () => {
           {/* Step: Delivery */}
           {step === "delivery" && (
             <div className="flex-1 space-y-4">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                <MapPin className="w-4 h-4" />
-                <span>Delivery Address</span>
-              </div>
-              <div className="space-y-2">
-                <Label>Street Address *</Label>
-                <Input value={form.address} onChange={e => setForm(p => ({ ...p, address: e.target.value }))} placeholder="123 Main Street, Apt 4B" />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label>City *</Label>
-                  <Input value={form.city} onChange={e => setForm(p => ({ ...p, city: e.target.value }))} placeholder="Phoenix" />
-                </div>
-                <div className="space-y-2">
-                  <Label>State</Label>
-                  <Input value={form.state} onChange={e => setForm(p => ({ ...p, state: e.target.value }))} placeholder="AZ" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label>ZIP Code</Label>
-                  <Input value={form.zip} onChange={e => setForm(p => ({ ...p, zip: e.target.value }))} placeholder="85001" />
-                </div>
-                <div className="space-y-2">
-                  <Label>Country</Label>
-                  <Input value={form.country} onChange={e => setForm(p => ({ ...p, country: e.target.value }))} placeholder="US" />
+              {/* Pickup vs Delivery toggle */}
+              <div>
+                <Label className="text-xs text-muted-foreground uppercase tracking-wide">How would you like your order?</Label>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setFulfillment("delivery")}
+                    className={`flex flex-col items-center gap-1 rounded-xl border-2 p-3 transition-all ${fulfillment === "delivery" ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/40"}`}
+                  >
+                    <Truck className={`w-5 h-5 ${fulfillment === "delivery" ? "text-primary" : "text-muted-foreground"}`} />
+                    <span className="font-semibold text-sm">Delivery</span>
+                    <span className="text-[11px] text-muted-foreground">{DELIVERY_ETA} • ${DELIVERY_FLAT_FEE.toFixed(2)}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFulfillment("pickup")}
+                    className={`flex flex-col items-center gap-1 rounded-xl border-2 p-3 transition-all ${fulfillment === "pickup" ? "border-primary bg-primary/10" : "border-border bg-muted/20 hover:border-primary/40"}`}
+                  >
+                    <ShoppingCart className={`w-5 h-5 ${fulfillment === "pickup" ? "text-primary" : "text-muted-foreground"}`} />
+                    <span className="font-semibold text-sm">Pickup</span>
+                    <span className="text-[11px] text-muted-foreground">{PICKUP_ETA} • Free</span>
+                  </button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label>Delivery Instructions (optional)</Label>
-                <Textarea value={form.deliveryInstructions} onChange={e => setForm(p => ({ ...p, deliveryInstructions: e.target.value }))} placeholder="Gate code, leave at door, etc." rows={2} />
-              </div>
+
+              {/* Courier picker (delivery only) */}
+              {fulfillment === "delivery" && (
+                <div>
+                  <Label className="text-xs text-muted-foreground uppercase tracking-wide">Delivered by</Label>
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    <button
+                      type="button"
+                      onClick={() => setCourier("doordash")}
+                      className={`flex items-center justify-center rounded-xl border-2 p-2 h-14 transition-all bg-white ${courier === "doordash" ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/40"}`}
+                    >
+                      <img src={doordashLogo} alt="DoorDash" className="h-7 object-contain" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCourier("ubereats")}
+                      className={`flex items-center justify-center rounded-xl border-2 p-2 h-14 transition-all bg-white ${courier === "ubereats" ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/40"}`}
+                    >
+                      <img src={uberEatsLogo} alt="Uber Eats" className="h-9 object-contain" />
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-2 text-center">
+                    Estimated arrival: <span className="font-semibold text-foreground">{DELIVERY_ETA}</span> via {courier === "doordash" ? "DoorDash" : "Uber Eats"}
+                  </p>
+                </div>
+              )}
+
+              {/* Address (delivery) OR pickup info */}
+              {fulfillment === "delivery" ? (
+                <>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
+                    <MapPin className="w-4 h-4" />
+                    <span>Delivery Address</span>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Street Address *</Label>
+                    <Input value={form.address} onChange={e => setForm(p => ({ ...p, address: e.target.value }))} placeholder="123 Main Street, Apt 4B" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-2">
+                      <Label>City *</Label>
+                      <Input value={form.city} onChange={e => setForm(p => ({ ...p, city: e.target.value }))} placeholder="Phoenix" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>State</Label>
+                      <Input value={form.state} onChange={e => setForm(p => ({ ...p, state: e.target.value }))} placeholder="AZ" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-2">
+                      <Label>ZIP Code</Label>
+                      <Input value={form.zip} onChange={e => setForm(p => ({ ...p, zip: e.target.value }))} placeholder="85001" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Country</Label>
+                      <Input value={form.country} onChange={e => setForm(p => ({ ...p, country: e.target.value }))} placeholder="US" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Delivery Instructions (optional)</Label>
+                    <Textarea value={form.deliveryInstructions} onChange={e => setForm(p => ({ ...p, deliveryInstructions: e.target.value }))} placeholder="Gate code, leave at door, etc." rows={2} />
+                  </div>
+                </>
+              ) : (
+                <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-2">
+                  <div className="flex items-center gap-2 text-sm font-semibold">
+                    <MapPin className="w-4 h-4 text-primary" /> Pickup Location
+                  </div>
+                  <p className="text-sm">{PICKUP_ADDRESS}</p>
+                  <p className="text-xs text-muted-foreground">We'll text you when your order is ready (about {PICKUP_ETA}).</p>
+                </div>
+              )}
 
               <div className="pt-4 border-t border-border space-y-3">
                 <div className="flex justify-between text-sm">
@@ -456,8 +541,14 @@ const CartDrawer = () => {
                   <span>${totalPrice().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground flex items-center gap-1"><Truck className="w-3 h-3" /> Shipping</span>
-                  <span>{shippingFee === 0 ? <span className="text-green-500">Free</span> : `$${shippingFee.toFixed(2)}`}</span>
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Truck className="w-3 h-3" /> {fulfillment === "pickup" ? "Pickup" : "Delivery fee"}
+                  </span>
+                  <span>{shippingFee === 0 ? <span className="text-primary font-medium">Free</span> : `$${shippingFee.toFixed(2)}`}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-muted-foreground">Estimated time</span>
+                  <span className="font-medium">{etaLabel}</span>
                 </div>
                 <div className="flex justify-between mb-2">
                   <span className="font-semibold">Total</span>
@@ -482,16 +573,28 @@ const CartDrawer = () => {
                   <span className="font-medium">{form.name}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-muted-foreground">Deliver to</span>
-                  <span className="font-medium text-right text-xs">{form.address}, {form.city}</span>
+                  <span className="text-muted-foreground">{fulfillment === "pickup" ? "Pickup at" : "Deliver to"}</span>
+                  <span className="font-medium text-right text-xs">
+                    {fulfillment === "pickup" ? PICKUP_ADDRESS : `${form.address}, ${form.city}`}
+                  </span>
+                </div>
+                {fulfillment === "delivery" && (
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-muted-foreground">Courier</span>
+                    <span className="font-medium">{courier === "doordash" ? "DoorDash" : "Uber Eats"}</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-sm mb-1">
+                  <span className="text-muted-foreground">ETA</span>
+                  <span className="font-medium">{etaLabel}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-muted-foreground">Subtotal</span>
                   <span>${totalPrice().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-muted-foreground flex items-center gap-1"><Truck className="w-3 h-3" /> Shipping</span>
-                  <span>{shippingFee === 0 ? <span className="text-green-500">Free</span> : `$${shippingFee.toFixed(2)}`}</span>
+                  <span className="text-muted-foreground flex items-center gap-1"><Truck className="w-3 h-3" /> {fulfillment === "pickup" ? "Pickup" : "Delivery fee"}</span>
+                  <span>{shippingFee === 0 ? <span className="text-primary font-medium">Free</span> : `$${shippingFee.toFixed(2)}`}</span>
                 </div>
                 <div className="flex justify-between mt-2">
                   <span className="font-semibold">Total</span>
