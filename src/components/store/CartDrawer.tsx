@@ -115,19 +115,26 @@ const CartDrawer = () => {
       const { lat, lng } = await geocodeAddress();
 
       // Store order metadata in sessionStorage for the success page
+      const courierLabel = courier === "doordash" ? "DoorDash" : "Uber Eats";
+      const fulfillmentNote = fulfillment === "pickup"
+        ? `[PICKUP — ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`.trim()
+        : `[DELIVERY via ${courierLabel} — ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`.trim();
       const orderMetadata = {
         phone: form.phone,
-        address: form.address,
-        city: form.city,
-        state: form.state,
+        address: fulfillment === "pickup" ? PICKUP_ADDRESS : form.address,
+        city: fulfillment === "pickup" ? "Phoenix" : form.city,
+        state: fulfillment === "pickup" ? "AZ" : form.state,
         zip: form.zip,
         country: form.country,
-        deliveryInstructions: form.deliveryInstructions,
+        deliveryInstructions: fulfillmentNote,
         altContactName: form.altContactName,
         altContactPhone: form.altContactPhone,
         items: orderItems,
         latitude: lat,
         longitude: lng,
+        fulfillment,
+        courier: fulfillment === "delivery" ? courier : null,
+        eta: fulfillment === "pickup" ? PICKUP_ETA : DELIVERY_ETA,
       };
 
       sessionStorage.setItem("checkout_metadata", JSON.stringify(orderMetadata));
@@ -189,12 +196,14 @@ const CartDrawer = () => {
         customer_phone: form.phone || null,
         items: orderItems as any,
         total_amount: total,
-        delivery_address: form.address,
-        delivery_city: form.city,
-        delivery_state: form.state || null,
+        delivery_address: fulfillment === "pickup" ? PICKUP_ADDRESS : form.address,
+        delivery_city: fulfillment === "pickup" ? "Phoenix" : form.city,
+        delivery_state: fulfillment === "pickup" ? "AZ" : (form.state || null),
         delivery_zip: form.zip || null,
         delivery_country: form.country,
-        delivery_instructions: form.deliveryInstructions || null,
+        delivery_instructions: (fulfillment === "pickup"
+          ? `[PICKUP — ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`
+          : `[DELIVERY via ${courier === "doordash" ? "DoorDash" : "Uber Eats"} — ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`).trim(),
         alt_contact_name: form.altContactName || null,
         alt_contact_phone: form.altContactPhone || null,
         payment_method: "bank_transfer",
