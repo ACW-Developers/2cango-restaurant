@@ -24,10 +24,10 @@ const StoreNavigation = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-            <img src={logo} alt="2Cango" className="h-10 w-10 object-contain" />
-            <h1 className="text-lg font-bold font-space gradient-text">2Cango Restaurant</h1>
+        <div className="flex items-center justify-between h-20">
+          <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
+            <img src={logo} alt="2Cango" className="h-14 w-14 object-contain" />
+            <h1 className="text-xl md:text-2xl font-bold font-space gradient-text">2Cango Restaurant</h1>
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
