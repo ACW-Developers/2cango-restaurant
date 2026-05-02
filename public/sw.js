@@ -1,4 +1,4 @@
-// Network-first service worker v2 — clears all caches, never serves stale data
+// Network-first service worker v2 - clears all caches, never serves stale data
 const SW_VERSION = "v2";
 
 self.addEventListener('install', () => self.skipWaiting());

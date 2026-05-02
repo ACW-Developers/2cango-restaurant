@@ -15,13 +15,13 @@ import { Plus, Pencil, Trash2, Loader2, Upload, ImageIcon, Info } from "lucide-r
 import type { MarketingBanner } from "@/types/product";
 
 const POSITIONS = [
-  { value: "hero", label: "Home Hero", hint: "1200×150 — Full-width banner at top of homepage" },
-  { value: "home-mid", label: "Home Middle", hint: "1200×130 — Between featured & sale sections" },
-  { value: "home-bottom", label: "Home Bottom", hint: "1200×120 — Above the footer on homepage" },
-  { value: "shop-top", label: "Shop Top", hint: "1200×120 — Top of shop page" },
-  { value: "shop-mid", label: "Shop Mid", hint: "1200×110 — Between product rows" },
-  { value: "shop-bottom", label: "Shop Bottom", hint: "1200×120 — Bottom of shop page" },
-  { value: "sidebar", label: "Sidebar", hint: "300×600 — Vertical sidebar ad" },
+  { value: "hero", label: "Home Hero", hint: "1200×150 - Full-width banner at top of homepage" },
+  { value: "home-mid", label: "Home Middle", hint: "1200×130 - Between featured & sale sections" },
+  { value: "home-bottom", label: "Home Bottom", hint: "1200×120 - Above the footer on homepage" },
+  { value: "shop-top", label: "Shop Top", hint: "1200×120 - Top of shop page" },
+  { value: "shop-mid", label: "Shop Mid", hint: "1200×110 - Between product rows" },
+  { value: "shop-bottom", label: "Shop Bottom", hint: "1200×120 - Bottom of shop page" },
+  { value: "sidebar", label: "Sidebar", hint: "300×600 - Vertical sidebar ad" },
 ];
 
 const BannersPage = () => {
@@ -98,7 +98,7 @@ const BannersPage = () => {
       position: form.position,
       display_order: parseInt(form.display_order) || 0,
       is_active: form.is_active,
-      dimensions_hint: pos?.hint?.split(" — ")[0] || "1200x400",
+      dimensions_hint: pos?.hint?.split(" - ")[0] || "1200x400",
     };
 
     if (editBanner) {

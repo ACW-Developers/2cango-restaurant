@@ -218,7 +218,7 @@ const ReceiptsPage = () => {
             ) : receipts.map(r => (
               <TableRow key={r.id} className="hover:bg-muted/5">
                 <TableCell className="font-mono text-sm">{r.receipt_number}</TableCell>
-                <TableCell className="font-mono text-xs text-muted-foreground">{(r as any).order_id ? (r as any).order_id.slice(0, 8).toUpperCase() : "—"}</TableCell>
+                <TableCell className="font-mono text-xs text-muted-foreground">{(r as any).order_id ? (r as any).order_id.slice(0, 8).toUpperCase() : "-"}</TableCell>
                 <TableCell>
                   <p className="font-medium text-sm">{r.customer_name}</p>
                   <p className="text-xs text-muted-foreground">{r.customer_email}</p>

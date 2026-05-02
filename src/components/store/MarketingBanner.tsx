@@ -80,7 +80,7 @@ const MarketingBanner = ({ position, className = "" }: Props) => {
 
   if (banners.length === 0) return null;
 
-  // Single banner — simple render
+  // Single banner - simple render
   if (banners.length === 1) {
     const b = banners[0];
     const img = (
@@ -102,7 +102,7 @@ const MarketingBanner = ({ position, className = "" }: Props) => {
     return b.link_url ? <Link to={b.link_url}>{img}</Link> : img;
   }
 
-  // Multiple banners — animated carousel
+  // Multiple banners - animated carousel
   const b = banners[current];
 
   const content = (

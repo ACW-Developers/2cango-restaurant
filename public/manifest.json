@@ -1,7 +1,7 @@
 {
   "name": "2Cango Restaurant",
   "short_name": "2Cango",
-  "description": "Bold West African flavors in Phoenix, Arizona — smoky jollof, char-grilled tilapia, sizzling shawarma wraps and more.",
+  "description": "Bold West African flavors in Phoenix, Arizona - smoky jollof, char-grilled tilapia, sizzling shawarma wraps and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FBF5EC",

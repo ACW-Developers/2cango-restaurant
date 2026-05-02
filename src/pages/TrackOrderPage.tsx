@@ -194,7 +194,7 @@ const TrackOrderPage = () => {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Delivery</p>
-                    <p className="font-medium text-xs">{selectedOrder.delivery_city || "—"}{selectedOrder.delivery_state ? `, ${selectedOrder.delivery_state}` : ""}</p>
+                    <p className="font-medium text-xs">{selectedOrder.delivery_city || "-"}{selectedOrder.delivery_state ? `, ${selectedOrder.delivery_state}` : ""}</p>
                   </div>
                 </div>
               </div>

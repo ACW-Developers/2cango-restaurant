@@ -16,10 +16,10 @@ import uberEatsLogo from "@/assets/delivery/ubereats.png";
 type Fulfillment = "delivery" | "pickup";
 type Courier = "doordash" | "ubereats";
 
-const PICKUP_ADDRESS = "2Cango Kitchen — 1234 N Central Ave, Phoenix, AZ 85004";
+const PICKUP_ADDRESS = "2Cango Kitchen - 1234 N Central Ave, Phoenix, AZ 85004";
 const DELIVERY_FLAT_FEE = 5.99;
-const DELIVERY_ETA = "30–45 min";
-const PICKUP_ETA = "15–20 min";
+const DELIVERY_ETA = "30-45 min";
+const PICKUP_ETA = "15-20 min";
 
 type Step = "cart" | "details" | "delivery" | "payment" | "confirmation";
 
@@ -117,8 +117,8 @@ const CartDrawer = () => {
       // Store order metadata in sessionStorage for the success page
       const courierLabel = courier === "doordash" ? "DoorDash" : "Uber Eats";
       const fulfillmentNote = fulfillment === "pickup"
-        ? `[PICKUP — ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`.trim()
-        : `[DELIVERY via ${courierLabel} — ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`.trim();
+        ? `[PICKUP - ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`.trim()
+        : `[DELIVERY via ${courierLabel} - ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`.trim();
       const orderMetadata = {
         phone: form.phone,
         address: fulfillment === "pickup" ? PICKUP_ADDRESS : form.address,
@@ -202,8 +202,8 @@ const CartDrawer = () => {
         delivery_zip: form.zip || null,
         delivery_country: form.country,
         delivery_instructions: (fulfillment === "pickup"
-          ? `[PICKUP — ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`
-          : `[DELIVERY via ${courier === "doordash" ? "DoorDash" : "Uber Eats"} — ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`).trim(),
+          ? `[PICKUP - ETA ${PICKUP_ETA}] ${form.deliveryInstructions || ""}`
+          : `[DELIVERY via ${courier === "doordash" ? "DoorDash" : "Uber Eats"} - ETA ${DELIVERY_ETA}] ${form.deliveryInstructions || ""}`).trim(),
         alt_contact_name: form.altContactName || null,
         alt_contact_phone: form.altContactPhone || null,
         payment_method: "bank_transfer",
@@ -605,7 +605,7 @@ const CartDrawer = () => {
               {/* Stripe Card Payment */}
               <Button onClick={handleStripeCheckout} disabled={isOrdering} className="w-full gap-2 h-12" size="lg">
                 {isOrdering ? <Loader2 className="w-4 h-4 animate-spin" /> : <CreditCard className="w-5 h-5" />}
-                Pay with Card — ${grandTotal.toFixed(2)}
+                Pay with Card - ${grandTotal.toFixed(2)}
               </Button>
 
               <div className="relative my-2">
@@ -662,7 +662,7 @@ const CartDrawer = () => {
 
               <Button variant="outline" onClick={handleManualPayOrder} disabled={isOrdering} className="w-full gap-2 h-12" size="lg">
                 {isOrdering ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-5 h-5" />}
-                I've Paid — Place Order
+                I've Paid - Place Order
               </Button>
 
               <Button variant="ghost" onClick={() => setStep("delivery")} className="w-full gap-1 mt-2">
