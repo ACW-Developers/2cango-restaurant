@@ -38,7 +38,7 @@ const StorePage = () => {
       <AnimatePresence>{pageLoading && <PageLoadingScreen label="Store" />}</AnimatePresence>
       <div className="min-h-screen bg-background">
         <StoreNavigation />
-        <main className="pt-16">
+        <main className="pt-20">
           <HeroCarousel />
 
           <div className="max-w-7xl mx-auto px-6 mt-8">
