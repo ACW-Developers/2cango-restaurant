@@ -177,8 +177,8 @@ const StorePage = () => {
                 </AnimatePresence>
 
                 {/* Navy blue slight overlay so contents stay visible */}
-                <div className="absolute inset-0 bg-[hsl(220_60%_15%)]/65" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_60%_10%)]/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-[hsl(220_60%_8%)]/85" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_60%_5%)]/95 via-[hsl(220_60%_8%)]/70 to-[hsl(220_60%_8%)]/60" />
 
                 {/* Content */}
                 <div className="relative z-10 p-10 md:p-16 text-center max-w-3xl mx-auto ">
