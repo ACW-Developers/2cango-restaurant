@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 const contactMethods = [
   { icon: MessageCircle, title: "WhatsApp", detail: "+1 (702) 426-5181", description: "Instant replies", action: "whatsapp", color: "from-green-500 to-emerald-600" },
   { icon: Mail, title: "Email", detail: "davidirihose94@gmail.com", description: "Detailed inquiries", action: "email", color: "from-blue-500 to-cyan-600" },
-  { icon: Phone, title: "Call", detail: "+1 (702) 426-5181", description: "Mon–Fri, 8am–6pm", action: "phone", color: "from-violet-500 to-purple-600" },
+  { icon: Phone, title: "Call", detail: "+1 (702) 426-5181", description: "Mon-Fri, 8am-6pm", action: "phone", color: "from-violet-500 to-purple-600" },
   { icon: MapPin, title: "Visit", detail: "Phoenix, Arizona", description: "Come say hello", action: "location", color: "from-orange-500 to-red-500" },
 ];
 
@@ -108,14 +108,14 @@ const ContactPage = () => {
         <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-5 gap-10">
-              {/* Left – Info (2 cols) */}
+              {/* Left - Info (2 cols) */}
               <div className="lg:col-span-2 space-y-6">
                 <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
                   <h2 className="text-3xl md:text-4xl font-bold font-space mb-4">
                     Let's Build Something <span className="gradient-text">Amazing</span>
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    Whether you need a stunning website, custom software, or comprehensive digital marketing — we're here.
+                    Whether you need a stunning website, custom software, or comprehensive digital marketing - we're here.
                   </p>
                 </motion.div>
 
@@ -157,7 +157,7 @@ const ContactPage = () => {
                 </motion.div>
               </div>
 
-              {/* Right – Form (3 cols) */}
+              {/* Right - Form (3 cols) */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}

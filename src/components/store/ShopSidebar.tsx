@@ -138,7 +138,7 @@ const ShopSidebar = ({ filters, onFiltersChange, isOpen, onClose }: Props) => {
             { v: "newest", l: "Newest First" },
             { v: "price-low", l: "Price: Low → High" },
             { v: "price-high", l: "Price: High → Low" },
-            { v: "name", l: "Name A–Z" },
+            { v: "name", l: "Name A-Z" },
           ].map(s => (
             <button
               key={s.v}

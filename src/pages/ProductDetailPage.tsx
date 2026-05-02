@@ -236,7 +236,7 @@ const ProductDetailPage = () => {
 
               <Button size="lg" className="gap-2 w-full md:w-auto" onClick={handleAddToCart} disabled={product.stock_quantity <= 0}>
                 <ShoppingCart className="w-5 h-5" />
-                Add to Cart — ${(effectivePrice * quantity).toFixed(2)}
+                Add to Cart - ${(effectivePrice * quantity).toFixed(2)}
               </Button>
             </div>
           </div>

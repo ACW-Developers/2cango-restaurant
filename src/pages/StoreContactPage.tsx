@@ -24,7 +24,7 @@ const StoreContactPage = () => {
   const contactCards = [
     { icon: MessageCircle, label: "WhatsApp", value: "+1 (702) 426-5181", sub: "Instant replies", action: () => window.open("https://wa.me/17024265181", "_blank"), gradient: "from-emerald-500 to-green-600" },
     { icon: Mail, label: "Email Us", value: "davidirihose94@gmail.com", sub: "We reply within 2 hrs", action: () => window.location.href = "mailto:davidirihose94@gmail.com", gradient: "from-blue-500 to-cyan-500" },
-    { icon: Phone, label: "Call Us", value: "+1 (702) 426-5181", sub: "Mon – Fri, 8am – 6pm", action: () => window.location.href = "tel:+17024265181", gradient: "from-violet-500 to-purple-600" },
+    { icon: Phone, label: "Call Us", value: "+1 (702) 426-5181", sub: "Mon - Fri, 8am - 6pm", action: () => window.location.href = "tel:+17024265181", gradient: "from-violet-500 to-purple-600" },
     { icon: MapPin, label: "Visit Us", value: "Phoenix, Arizona", sub: "Maricopa, Amsterdam Rd", action: () => {}, gradient: "from-orange-500 to-rose-500" },
   ];
 
@@ -107,7 +107,7 @@ const StoreContactPage = () => {
                   Why Reach <span className="gradient-text">Out?</span>
                 </h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Whether it's a custom order, bulk inquiry, or product question — our team provides fast, personal support.
+                  Whether it's a custom order, bulk inquiry, or product question - our team provides fast, personal support.
                 </p>
               </motion.div>
 
@@ -141,7 +141,7 @@ const StoreContactPage = () => {
                 <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-white/5 rounded-full" />
                 <MessageCircle className="w-7 h-7 mb-2 relative z-10" />
                 <h3 className="text-base font-bold font-space mb-1 relative z-10">Prefer WhatsApp?</h3>
-                <p className="text-xs text-white/75 mb-3 relative z-10">Chat directly — we usually reply in minutes</p>
+                <p className="text-xs text-white/75 mb-3 relative z-10">Chat directly - we usually reply in minutes</p>
                 <Button
                   onClick={() => window.open("https://wa.me/17024265181", "_blank")}
                   className="bg-white text-emerald-600 hover:bg-white/90 w-full text-sm font-semibold gap-2 relative z-10"
@@ -152,7 +152,7 @@ const StoreContactPage = () => {
               </motion.div>
             </div>
 
-            {/* Right Panel – Form */}
+            {/* Right Panel - Form */}
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}

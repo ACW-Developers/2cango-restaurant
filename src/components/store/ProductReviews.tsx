@@ -116,7 +116,7 @@ const ProductReviews = ({ productId }: Props) => {
           <div className="flex items-center gap-2 mt-1">
             <StarRating rating={Math.round(avg)} size={20} />
             <span className="text-sm text-muted-foreground">
-              {reviews.length > 0 ? `${avg.toFixed(1)} out of 5 · ${reviews.length} review${reviews.length !== 1 ? "s" : ""}` : "No reviews yet — be the first!"}
+              {reviews.length > 0 ? `${avg.toFixed(1)} out of 5 · ${reviews.length} review${reviews.length !== 1 ? "s" : ""}` : "No reviews yet - be the first!"}
             </span>
           </div>
         </div>

@@ -187,7 +187,7 @@ const StorePage = () => {
                     Taste the <span className="text-primary">Bold Side</span> of Phoenix
                   </h2>
                   <p className="text-white/95 text-lg max-w-2xl mx-auto mb-6 drop-shadow">
-                    From smoky jollof and grilled tilapia to sizzling shawarma — every plate is made to order with fresh
+                    From smoky jollof and grilled tilapia to sizzling shawarma - every plate is made to order with fresh
                     ingredients and big West African flavor.
                   </p>
                   <Button

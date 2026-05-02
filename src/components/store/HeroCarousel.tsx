@@ -12,7 +12,7 @@ const slides = [
     image: slide1,
     title: "Smoky Jollof & Chicken",
     subtitle: "Signature West African Mains",
-    description: "Bottom-pot smoky jollof rice with juicy grilled chicken — Phoenix's favorite comfort plate.",
+    description: "Bottom-pot smoky jollof rice with juicy grilled chicken - Phoenix's favorite comfort plate.",
     cta: "Order Now",
   },
   {

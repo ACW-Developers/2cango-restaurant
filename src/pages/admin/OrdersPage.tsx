@@ -147,7 +147,7 @@ const OrdersPage = () => {
                   <h4 className="text-xs text-muted-foreground mb-2 font-semibold uppercase">Customer</h4>
                   <p className="font-medium">{selectedOrder.customer_name}</p>
                   <p className="text-sm text-muted-foreground">{selectedOrder.customer_email}</p>
-                  <p className="text-sm text-muted-foreground">{selectedOrder.customer_phone || "—"}</p>
+                  <p className="text-sm text-muted-foreground">{selectedOrder.customer_phone || "-"}</p>
                   {selectedOrder.alt_contact_name && (
                     <div className="mt-2 pt-2 border-t border-border">
                       <p className="text-xs text-muted-foreground">Alt Contact</p>
@@ -158,7 +158,7 @@ const OrdersPage = () => {
                 </div>
                 <div className="glass-card p-4">
                   <h4 className="text-xs text-muted-foreground mb-2 font-semibold uppercase">Delivery</h4>
-                  <p className="text-sm font-medium">{selectedOrder.delivery_address || "—"}</p>
+                  <p className="text-sm font-medium">{selectedOrder.delivery_address || "-"}</p>
                   <p className="text-sm text-muted-foreground">
                     {[selectedOrder.delivery_city, selectedOrder.delivery_state, selectedOrder.delivery_zip].filter(Boolean).join(", ")}
                   </p>
@@ -175,7 +175,7 @@ const OrdersPage = () => {
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
                     <p className="text-xs text-muted-foreground">Tracking #</p>
-                    <p className="font-mono font-bold text-primary text-xs">{selectedOrder.tracking_number || "—"}</p>
+                    <p className="font-mono font-bold text-primary text-xs">{selectedOrder.tracking_number || "-"}</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Payment</p>
