@@ -176,7 +176,7 @@ const InvoicesPage = () => {
                   <img src={logo} alt="Logo" style={{ height: 40, marginBottom: 8 }} />
                   <h2 style={{ fontSize: 20, fontWeight: "bold", margin: 0 }}>BrightPath Merchandise</h2>
                   <p style={{ color: "#888", fontSize: 12 }}>Phoenix, Arizona</p>
-                  <p style={{ color: "#888", fontSize: 12 }}>+1 (520) 736-1677</p>
+                  <p style={{ color: "#888", fontSize: 12 }}>+1 (702) 426-5181</p>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <h3 style={{ fontSize: 24, fontWeight: "bold", color: "#38bdf8" }}>INVOICE</h3>

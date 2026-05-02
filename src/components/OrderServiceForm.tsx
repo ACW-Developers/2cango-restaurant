@@ -171,7 +171,7 @@ Sent via TechCorp Order Form
       `.trim();
 
       // Create WhatsApp URL
-      const whatsappNumber = "15207361677"; // Remove spaces and format for URL
+      const whatsappNumber = "17024265181"; // Remove spaces and format for URL
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 

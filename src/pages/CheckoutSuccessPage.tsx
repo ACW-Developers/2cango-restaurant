@@ -113,7 +113,7 @@ const CheckoutSuccessPage = () => {
           <div style={{ textAlign: "center", marginBottom: 12 }}>
             <img src={logo} alt="Logo" style={{ height: 32, marginBottom: 6, margin: "0 auto", display: "block" }} />
             <p style={{ fontWeight: "bold", margin: 0 }}>BrightPath Merchandise</p>
-            <p style={{ fontSize: 11, color: "#888" }}>Phoenix, Arizona • +1 (520) 736-1677</p>
+            <p style={{ fontSize: 11, color: "#888" }}>Phoenix, Arizona • +1 (702) 426-5181</p>
             <div style={{ borderTop: "1px dashed #444", margin: "8px 0" }} />
             <p style={{ fontWeight: "bold" }}>{orderInfo?.receipt_number}</p>
             <p style={{ fontSize: 11, color: "#888" }}>Payment: Stripe Card ✓</p>

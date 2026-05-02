@@ -16,15 +16,15 @@ const StoreContactPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = `*New Inquiry*\n\n*Name:* ${form.name}\n*Email:* ${form.email}\n*Phone:* ${form.phone}\n*Subject:* ${form.subject}\n\n*Message:*\n${form.message}`;
-    window.open(`https://wa.me/15207361677?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(`https://wa.me/17024265181?text=${encodeURIComponent(msg)}`, "_blank");
     toast({ title: "Opening WhatsApp!", description: "Your message is ready to send." });
     setForm({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 
   const contactCards = [
-    { icon: MessageCircle, label: "WhatsApp", value: "+1 (520) 736-1677", sub: "Instant replies", action: () => window.open("https://wa.me/15207361677", "_blank"), gradient: "from-emerald-500 to-green-600" },
+    { icon: MessageCircle, label: "WhatsApp", value: "+1 (702) 426-5181", sub: "Instant replies", action: () => window.open("https://wa.me/17024265181", "_blank"), gradient: "from-emerald-500 to-green-600" },
     { icon: Mail, label: "Email Us", value: "davidirihose94@gmail.com", sub: "We reply within 2 hrs", action: () => window.location.href = "mailto:davidirihose94@gmail.com", gradient: "from-blue-500 to-cyan-500" },
-    { icon: Phone, label: "Call Us", value: "+1 (520) 736-1677", sub: "Mon – Fri, 8am – 6pm", action: () => window.location.href = "tel:+15207361677", gradient: "from-violet-500 to-purple-600" },
+    { icon: Phone, label: "Call Us", value: "+1 (702) 426-5181", sub: "Mon – Fri, 8am – 6pm", action: () => window.location.href = "tel:+17024265181", gradient: "from-violet-500 to-purple-600" },
     { icon: MapPin, label: "Visit Us", value: "Phoenix, Arizona", sub: "Maricopa, Amsterdam Rd", action: () => {}, gradient: "from-orange-500 to-rose-500" },
   ];
 
@@ -37,7 +37,7 @@ const StoreContactPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <StoreNavigation />
-      <main className="pt-16">
+      <main className="pt-20">
         {/* Hero Section */}
         <section className="relative py-24 px-6 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
@@ -143,7 +143,7 @@ const StoreContactPage = () => {
                 <h3 className="text-base font-bold font-space mb-1 relative z-10">Prefer WhatsApp?</h3>
                 <p className="text-xs text-white/75 mb-3 relative z-10">Chat directly — we usually reply in minutes</p>
                 <Button
-                  onClick={() => window.open("https://wa.me/15207361677", "_blank")}
+                  onClick={() => window.open("https://wa.me/17024265181", "_blank")}
                   className="bg-white text-emerald-600 hover:bg-white/90 w-full text-sm font-semibold gap-2 relative z-10"
                 >
                   <MessageCircle className="w-4 h-4" /> Start Chat
