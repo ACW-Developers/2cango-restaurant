@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const WhatsAppWidget = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const phoneNumber = "15207361677";
+  const phoneNumber = "17024265181";
   const message = "Hello there, I'm interested in your service.";
 
   const handleClick = () => {

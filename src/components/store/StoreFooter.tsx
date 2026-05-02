@@ -24,8 +24,8 @@ const StoreFooter = () => {
           <div>
             <h4 className="text-lg font-semibold font-space mb-3 text-foreground">Visit & Order</h4>
             <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-primary" /><span className="text-muted-foreground">hello@2cango.com</span></div>
-              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-primary" /><span className="text-muted-foreground">+1 (520) 736-1677</span></div>
+              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-primary" /><span className="text-muted-foreground">info@2cangorestaurants.com</span></div>
+              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-primary" /><span className="text-muted-foreground">+1 (702) 426-5181</span></div>
               <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-primary" /><span className="text-muted-foreground">Phoenix, Arizona</span></div>
             </div>
           </div>

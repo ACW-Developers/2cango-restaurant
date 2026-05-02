@@ -69,7 +69,7 @@ const ReceiptsPage = () => {
     </style></head><body>
       <div class="header">
         <div class="biz-name">BrightPath Merchandise</div>
-        <div class="biz-info">Phoenix, Arizona • +1 (520) 736-1677</div>
+        <div class="biz-info">Phoenix, Arizona • +1 (702) 426-5181</div>
         <div class="biz-info">brightpathmerchandise.com</div>
       </div>
       <div class="receipt-meta">
@@ -128,7 +128,7 @@ const ReceiptsPage = () => {
               <div className="text-center pb-4 border-b border-border/40">
                 <img src={logo} alt="Logo" className="h-10 mx-auto mb-2" />
                 <h3 className="font-bold font-space text-lg">BrightPath Merchandise</h3>
-                <p className="text-xs text-muted-foreground">Phoenix, Arizona • +1 (520) 736-1677</p>
+                <p className="text-xs text-muted-foreground">Phoenix, Arizona • +1 (702) 426-5181</p>
               </div>
 
               {/* Receipt meta */}

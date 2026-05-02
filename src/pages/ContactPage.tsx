@@ -9,9 +9,9 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 const contactMethods = [
-  { icon: MessageCircle, title: "WhatsApp", detail: "+1 (520) 736-1677", description: "Instant replies", action: "whatsapp", color: "from-green-500 to-emerald-600" },
+  { icon: MessageCircle, title: "WhatsApp", detail: "+1 (702) 426-5181", description: "Instant replies", action: "whatsapp", color: "from-green-500 to-emerald-600" },
   { icon: Mail, title: "Email", detail: "davidirihose94@gmail.com", description: "Detailed inquiries", action: "email", color: "from-blue-500 to-cyan-600" },
-  { icon: Phone, title: "Call", detail: "+1 (520) 736-1677", description: "Mon–Fri, 8am–6pm", action: "phone", color: "from-violet-500 to-purple-600" },
+  { icon: Phone, title: "Call", detail: "+1 (702) 426-5181", description: "Mon–Fri, 8am–6pm", action: "phone", color: "from-violet-500 to-purple-600" },
   { icon: MapPin, title: "Visit", detail: "Phoenix, Arizona", description: "Come say hello", action: "location", color: "from-orange-500 to-red-500" },
 ];
 
@@ -23,16 +23,16 @@ const ContactPage = () => {
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = `*New Contact Form Submission*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Phone:* ${formData.phone}%0A*Subject:* ${formData.subject}%0A%0A*Message:*%0A${formData.message}`;
-    window.open(`https://wa.me/15207361677?text=${msg}`, '_blank');
+    window.open(`https://wa.me/17024265181?text=${msg}`, '_blank');
     toast({ title: "Opening WhatsApp!", description: "You'll be redirected to WhatsApp to send your message." });
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 
   const handleContactMethodClick = (method: typeof contactMethods[0]) => {
     switch (method.action) {
-      case 'whatsapp': window.open('https://wa.me/15207361677', '_blank'); break;
+      case 'whatsapp': window.open('https://wa.me/17024265181', '_blank'); break;
       case 'email': window.location.href = 'mailto:davidirihose94@gmail.com'; break;
-      case 'phone': window.location.href = 'tel:+15207361677'; break;
+      case 'phone': window.location.href = 'tel:+17024265181'; break;
     }
   };
 
@@ -149,7 +149,7 @@ const ContactPage = () => {
                   <MessageCircle className="w-8 h-8 mb-3 relative z-10" />
                   <h3 className="text-lg font-bold font-space mb-2 relative z-10">Prefer Direct Chat?</h3>
                   <p className="text-sm text-white/80 mb-4 relative z-10">Start a conversation on WhatsApp instantly</p>
-                  <Button onClick={() => window.open('https://wa.me/15207361677', '_blank')} className="bg-white text-green-600 hover:bg-white/90 w-full group relative z-10">
+                  <Button onClick={() => window.open('https://wa.me/17024265181', '_blank')} className="bg-white text-green-600 hover:bg-white/90 w-full group relative z-10">
                     <MessageCircle className="w-4 h-4 mr-2" />
                     Chat Now
                     <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

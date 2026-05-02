@@ -137,7 +137,7 @@ const SettingsPage = () => {
               <h3 className="font-semibold font-space mb-4 flex items-center gap-2"><MessageCircle className="w-4 h-4 text-primary" /> WhatsApp</h3>
               <div className="space-y-2">
                 <Label>WhatsApp Number</Label>
-                <Input value={form.whatsapp_number} onChange={e => setForm(f => ({ ...f, whatsapp_number: e.target.value }))} placeholder="15207361677" />
+                <Input value={form.whatsapp_number} onChange={e => setForm(f => ({ ...f, whatsapp_number: e.target.value }))} placeholder="17024265181" />
                 <p className="text-xs text-muted-foreground">Include country code without +</p>
               </div>
             </div>

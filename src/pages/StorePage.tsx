@@ -94,7 +94,7 @@ const StorePage = () => {
                   <Button
                     variant="glass"
                     size="lg"
-                    onClick={() => window.open("https://wa.me/15207361677?text=" + encodeURIComponent("Hi 2Cango! I'd like to place an order."), "_blank")}
+                    onClick={() => window.open("https://wa.me/17024265181?text=" + encodeURIComponent("Hi 2Cango! I'd like to place an order."), "_blank")}
                   >
                     Order on WhatsApp
                   </Button>
