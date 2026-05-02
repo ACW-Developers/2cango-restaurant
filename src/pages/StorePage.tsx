@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import StoreNavigation from "@/components/store/StoreNavigation";
 import StoreFooter from "@/components/store/StoreFooter";
 import ProductCard from "@/components/store/ProductCard";
@@ -13,11 +13,21 @@ import ClearCacheButton from "@/components/store/ClearCacheButton";
 import { Sparkles, Flame, ShoppingBag, Search, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import interior1 from "@/assets/restaurant/interior-1.jpg";
+import interior2 from "@/assets/restaurant/interior-2.jpg";
+import storefront from "@/assets/restaurant/storefront.jpg";
+import foodie1 from "@/assets/hero/foodie-1.jpg";
+import foodie2 from "@/assets/hero/foodie-2.jpg";
+import foodie3 from "@/assets/hero/foodie-3.jpg";
+
+const boldBackgrounds = [interior1, interior2, storefront];
+const transitions = ["fade", "slide", "zoom"] as const;
 
 const StorePage = () => {
   const [pageLoading, setPageLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [bgIndex, setBgIndex] = useState(0);
   const { data: products = [], isLoading, isError } = useProducts(selectedCategory);
   const { data: featured = [] } = useFeaturedProducts();
   const { data: saleProducts = [] } = useSaleProducts();
@@ -28,10 +38,22 @@ const StorePage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const t = setInterval(() => setBgIndex(i => (i + 1) % boldBackgrounds.length), 6000);
+    return () => clearInterval(t);
+  }, []);
+
   const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     (p.description || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const variantFor = (i: number) => {
+    const kind = transitions[i % transitions.length];
+    if (kind === "slide") return { initial: { x: "100%", opacity: 0 }, animate: { x: 0, opacity: 1 }, exit: { x: "-100%", opacity: 0 } };
+    if (kind === "zoom") return { initial: { scale: 1.2, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.95, opacity: 0 } };
+    return { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } };
+  };
 
   return (
     <>
@@ -39,7 +61,19 @@ const StorePage = () => {
       <div className="min-h-screen bg-background">
         <StoreNavigation />
         <main className="pt-20">
-          <HeroCarousel />
+          {/* Decorative HD foodie images framing the hero carousel */}
+          <div className="relative">
+            <HeroCarousel />
+            <div className="hidden xl:block absolute -left-2 top-8 w-28 h-28 rounded-2xl overflow-hidden shadow-2xl border-4 border-background rotate-[-6deg] z-30 animate-float">
+              <img src={foodie1} alt="Jollof rice" className="w-full h-full object-cover" loading="eager" width={300} height={300} />
+            </div>
+            <div className="hidden xl:block absolute -right-2 top-20 w-32 h-32 rounded-full overflow-hidden shadow-2xl border-4 border-background z-30" style={{ animation: "float 6s ease-in-out infinite", animationDelay: "1s" }}>
+              <img src={foodie2} alt="Shawarma" className="w-full h-full object-cover" loading="eager" width={300} height={300} />
+            </div>
+            <div className="hidden xl:block absolute right-12 bottom-4 w-24 h-24 rounded-2xl overflow-hidden shadow-xl border-4 border-background rotate-[8deg] z-30" style={{ animation: "float 7s ease-in-out infinite", animationDelay: "2s" }}>
+              <img src={foodie3} alt="Tilapia" className="w-full h-full object-cover" loading="eager" width={300} height={300} />
+            </div>
+          </div>
 
           <div className="max-w-7xl mx-auto px-6 mt-8">
             <MarketingBanner position="hero" />
@@ -48,9 +82,12 @@ const StorePage = () => {
           {featured.length > 0 && (
             <section className="py-16 px-6">
               <div className="max-w-7xl mx-auto">
-                <div className="flex items-center gap-3 mb-8">
-                  <Sparkles className="w-6 h-6 text-primary" />
-                  <h2 className="text-3xl font-bold font-space">Featured Dishes</h2>
+                <div className="flex items-center justify-between gap-3 mb-8 flex-wrap">
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-6 h-6 text-primary" />
+                    <h2 className="text-3xl font-bold font-space">Featured Dishes</h2>
+                  </div>
+                  <ClearCacheButton />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {featured.map(p => <ProductCard key={p.id} product={p} />)}
@@ -81,23 +118,56 @@ const StorePage = () => {
 
           <section className="py-16 px-6">
             <div className="max-w-7xl mx-auto">
-              <div className="glass-card p-12 text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10" />
-                <div className="relative z-10">
-                  <TrendingUp className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h2 className="text-3xl md:text-4xl font-bold font-space mb-4">
-                    Taste the <span className="gradient-text">Bold Side</span> of Phoenix
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl min-h-[420px] flex items-center justify-center">
+                {/* Carousel of restaurant photos */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={bgIndex}
+                    {...variantFor(bgIndex)}
+                    transition={{ duration: 0.9, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={boldBackgrounds[bgIndex]}
+                      alt="2Cango Restaurant"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Navy blue slight overlay so contents stay visible */}
+                <div className="absolute inset-0 bg-[hsl(220_60%_15%)]/65" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_60%_10%)]/80 via-transparent to-transparent" />
+
+                {/* Content */}
+                <div className="relative z-10 p-10 md:p-16 text-center max-w-3xl mx-auto">
+                  <TrendingUp className="w-12 h-12 text-white mx-auto mb-4 drop-shadow-lg" />
+                  <h2 className="text-3xl md:text-5xl font-bold font-space mb-4 text-white drop-shadow-lg">
+                    Taste the <span className="text-primary">Bold Side</span> of Phoenix
                   </h2>
-                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
+                  <p className="text-white/95 text-lg max-w-2xl mx-auto mb-6 drop-shadow">
                     From smoky jollof and grilled tilapia to sizzling shawarma — every plate is made to order with fresh ingredients and big West African flavor.
                   </p>
                   <Button
-                    variant="glass"
                     size="lg"
+                    className="bg-primary hover:bg-primary/90 text-white shadow-xl"
                     onClick={() => window.open("https://wa.me/17024265181?text=" + encodeURIComponent("Hi 2Cango! I'd like to place an order."), "_blank")}
                   >
                     Order on WhatsApp
                   </Button>
+
+                  {/* Dots */}
+                  <div className="flex justify-center gap-2 mt-8">
+                    {boldBackgrounds.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setBgIndex(i)}
+                        className={`h-2 rounded-full transition-all ${i === bgIndex ? "w-8 bg-white" : "w-2 bg-white/40"}`}
+                        aria-label={`Show photo ${i + 1}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
