@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
+import ClearCacheButton from "@/components/store/ClearCacheButton";
 import logo from "@/assets/logo/logo.png";
 
 const menuItems = [
@@ -98,7 +99,10 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
             </button>
             <h1 className="text-lg font-bold font-space">{title}</h1>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <ClearCacheButton />
+            <ThemeToggle />
+          </div>
         </header>
 
         <main className="flex-1 p-4 md:p-6 overflow-auto">
